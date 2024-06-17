@@ -15,6 +15,8 @@
 #include <future>
 #include <vector>
 
+#include <type_traits> // added by Alex
+
 #ifdef JET_TASKING_TBB
 #include <tbb/parallel_for.h>
 #include <tbb/parallel_reduce.h>
@@ -55,7 +57,8 @@ inline void schedule(TASK_T&& fcn) {
 }
 
 template <typename TASK_T>
-using operator_return_t = typename std::result_of<TASK_T()>::type;
+using operator_return_t = typename std::_Invoke_result_t<TASK_T>;
+//using operator_return_t = typename std::result_of<TASK_T()>::type;
 
 // NOTE - see above, same issues associated with schedule()
 template <typename TASK_T>
