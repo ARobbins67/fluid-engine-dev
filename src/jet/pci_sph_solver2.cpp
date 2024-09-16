@@ -79,7 +79,7 @@ void PciSphSolver2::accumulatePressureForce(
         });
 
     unsigned int maxNumIter = 0;
-    double maxDensityError;
+    double maxDensityError = 0.0;
     double densityErrorRatio = 0.0;
 
     for (unsigned int k = 0; k < _maxNumberOfIterations; ++k) {
