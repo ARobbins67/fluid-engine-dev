@@ -101,6 +101,9 @@ class ParticleSystemSolver2 : public PhysicsAnimation {
     //! Returns the wind field.
     const VectorField2Ptr& wind() const;
 
+    //! Resolves any collisions occured by the particles.
+    void resolveCollision();
+
     //!
     //! \brief      Sets the wind.
     //!
@@ -114,11 +117,17 @@ class ParticleSystemSolver2 : public PhysicsAnimation {
     //! Returns builder fox ParticleSystemSolver2.
     static Builder builder();
 
+    void beginAdvanceTimeStep(double timeStepInSeconds);
+
+    void timeIntegration(double timeStepInSeconds);
+
+    void endAdvanceTimeStep(double timeStepInSeconds);
+
  protected:
     //! Initializes the simulator.
     void onInitialize() override;
 
-    //! Called to advane a single time-step.
+    //! Called to advance a single time-step.
     void onAdvanceTimeStep(double timeStepInSeconds) override;
 
     //! Accumulates forces applied to the particles.
@@ -129,9 +138,6 @@ class ParticleSystemSolver2 : public PhysicsAnimation {
 
     //! Called after a time-step is completed.
     virtual void onEndAdvanceTimeStep(double timeStepInSeconds);
-
-    //! Resolves any collisions occured by the particles.
-    void resolveCollision();
 
     //! Resolves any collisions occured by the particles where the particle
     //! state is given by the position and velocity arrays.
@@ -154,13 +160,7 @@ class ParticleSystemSolver2 : public PhysicsAnimation {
     ParticleEmitter2Ptr _emitter;
     VectorField2Ptr _wind;
 
-    void beginAdvanceTimeStep(double timeStepInSeconds);
-
-    void endAdvanceTimeStep(double timeStepInSeconds);
-
     void accumulateExternalForces();
-
-    void timeIntegration(double timeStepInSeconds);
 
     void updateCollider(double timeStepInSeconds);
 

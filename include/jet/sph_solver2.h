@@ -120,13 +120,13 @@ class SphSolver2 : public ParticleSystemSolver2 {
     //! Returns builder fox SphSolver2.
     static Builder builder();
 
+    //! Accumulates the force to the forces array in the particle system.
+    void accumulateForces(double timeStepInSeconds) override;
+
  protected:
     //! Returns the number of sub-time-steps.
     unsigned int numberOfSubTimeSteps(
         double timeIntervalInSeconds) const override;
-
-    //! Accumulates the force to the forces array in the particle system.
-    void accumulateForces(double timeStepInSeconds) override;
 
     //! Performs pre-processing step before the simulation.
     void onBeginAdvanceTimeStep(double timeStepInSeconds) override;
